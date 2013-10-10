@@ -1,0 +1,33 @@
+#!/usr/bin/python
+import curses, locale, traceback
+
+locale.setlocale(locale.LC_ALL, '')
+code = locale.getpreferredencoding()
+
+def main(stdscr):
+	stdscr.addstr(1,1,"this is just a simple test")
+	(maxy, maxx) = stdscr.getmaxyx()
+	log = stdscr.subpad(10, maxx, maxy-10, 0)
+	log.border()
+	while True:
+		log.addstr(1,1,stdscr.getstr())
+
+
+try:
+	stdscr = curses.initscr()
+	curses.noecho()
+	curses.cbreak()
+	stdscr.keypad(1)
+	main(stdscr)
+	stdscr.keypad(0)
+	curses.echo()
+	curses.nocbreak()
+	curses.endwin()
+except:
+	stdscr.keypad(0)
+	curses.echo()
+	curses.nocbreak()
+	curses.endwin()
+	print("it fails:")
+	traceback.print_exc()
+

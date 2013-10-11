@@ -1,6 +1,6 @@
 # encoding: utf-8
 
-import npyscreen
+import npyscreen, rebmaControl
 
 class RebMaStartForm(npyscreen.ActionForm):
 	def create(self):

@@ -5,9 +5,10 @@ import npyscreen
 
 class RebMaCreateErlAppAndRelForm(npyscreen.ActionForm):
 	def create(self):
+		self.repoList = list(set([(repo[0], repo[2]) for repo in self.parentApp.rebMaControl.get_repoList()]))
 		self.erlName = self.add(npyscreen.TitleText, name="Name:", scroll_exit=True)
 		self.erlDeps = self.add(npyscreen.TitleMultiSelect, name="Dependencies", scroll_exit=True, max_height=10,
-				values=self.parentApp.rebMaControl.get_repoList())
+				values=self.repoList)
 		self.add(npyscreen.FixedText, value="Press ^L to view Log", editable=False, rely=self.lines-3)
 		self.add_handlers({"^L": self.show_log,
 			"^Q": self.exit})
